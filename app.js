@@ -1,15 +1,16 @@
-import ProductManager from './ProductManager.js'
 import express from 'express'
+import apiProds from './routes/products.router.js'
+import apiCarts from './routes/carts.router.js'
 
 const app = express()
 const PORT = 8080
 
-const pm = new ProductManager()
-pm.getProducts()
-pm.addProduct({ nombre: "Yerba Playadito", price: 1200 })
-pm.addProduct({ nombre: "Yerba Mañanita", price: 900 })
-const getProds = await pm.getProducts()
-console.log(getProds);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Implementacion de Router
+app.use('/api/products', apiProds)
+app.use('/api/carts', apiCarts)
 
 export const server = app.listen(PORT , (req, res) => {
     console.log(`Todo listo vamos, puerto ${PORT}`);
