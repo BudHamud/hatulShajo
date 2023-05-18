@@ -52,7 +52,7 @@ class ProductManager {
         return parsedProducts;
       }
 
-      return  parsedProducts.slice(0, limit);
+      return parsedProducts.slice(0, limit);
     } catch (error) {
       console.error(`Error obteniendo /products: ${error}`);
       return [];
@@ -78,7 +78,8 @@ class ProductManager {
 
   async deleteProduct(id) {
     const products = await this.getProducts();
-    const filteredProducts = products.filter((product) => product.id !== id);
+    const filteredProducts = products.filter((product) => product.id !== 
+    Number(id));
     if (filteredProducts.length === products.length) {
       return null;
     }
