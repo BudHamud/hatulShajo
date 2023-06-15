@@ -6,7 +6,9 @@ import apiCarts from './routes/carts.router.js'
 import views from './routes/views.router.js'
 import configureWebSockets from './websockets.js'
 import { __dirname } from './utils.js'
+
 // import './config/cloudinary.js';
+import './config/dbConfig.js'
 
 const PORT = 8080
 const app = express()

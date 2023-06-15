@@ -1,19 +1,9 @@
 import { Server } from "socket.io";
 // import cloudinary from 'cloudinary'
 import ProductManager from "./dao/ProductManager.js";
-// import multer from 'multer';
+import messageModel from "./dao/models/message.model.js";
 
-// En algun momento le voy a poder agregar los thumbnails
-// const storage = multer.diskStorage({
-//   destination: './src/uploads/',
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + '-' + file.originalname);
-//   }
-// });
-
-// const upload = multer({ storage });
-
-const productManager = new ProductManager("./src/db/products.json");
+const productManager = new ProductManager();
 
 const configureWebSockets = (server) => {
   const io = new Server(server);
@@ -28,8 +18,14 @@ const configureWebSockets = (server) => {
       socket.emit("productList", products);
     };
 
-    // Emitir la lista de productos al cliente recién conectado
+    const emitMessageList = async () => {
+      const messages = await messageModel.find()
+      socket.emit("message", messages);
+    };
+
+    // Emitir la lista de productos y mesanjes al cliente recién conectado
     emitProductList();
+    emitMessageList();
 
     // Escuchar el evento de creación de un nuevo producto
     socket.on("createProduct", async (productData) => {
@@ -54,6 +50,18 @@ const configureWebSockets = (server) => {
     socket.on("deleteProduct", async (productId) => {
       await productManager.deleteProduct(productId);
       emitProductList();
+    });
+
+    // Enviar mensaje desde hbs
+    socket.on("sendMessage", async (messageData) => {
+      try {
+        const { user, message } = messageData;
+        const newMessage = await messageModel({ user, message });
+        await newMessage.save();
+        emitMessageList();
+      } catch (error) {
+        console.error("Error enviando el mensaje:", error);
+      }
     });
 
     // Manejar la desconexión del cliente

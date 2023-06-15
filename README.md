@@ -35,3 +35,14 @@ Hatul Shajo is a backend project 🛒
     + GET '/' render home.hbs
     + GET '/realTimeProducts' render realTimeProducts.hbs
 - En /views estan las vistas home y realTimeProducts.hbs
+
+### Entrega Clase 15:
+
+- Agregada la configuración de MongoDB al home
+- /config → Se agregó la configuracion de Mongo en dbConfig.js
+- /dao → Creación de los Manager de Mongo y separación de fs.
+- /router '/' (views):
+    + GET '/chat' chat.hbs
+- Ruta 'api/products': Cambios minimos para que funcione con Mongo.
+- /views → se agregó chat.hbs
+- websockets.js → Se agregaron funciones para funcionar con '/chat'
