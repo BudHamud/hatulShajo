@@ -46,3 +46,37 @@ Hatul Shajo is a backend project 🛒
 - Ruta 'api/products': Cambios minimos para que funcione con Mongo.
 - /views → se agregó chat.hbs
 - websockets.js → Se agregaron funciones para funcionar con '/chat'
+
+### Entrega Clase 17:
+
+<b>TODO</b>
+
+- /dao → En el ProductManager.js cambiar el return a un json funcional.
+- /router '/api/carts':
+    + DELETE '/:cid/products/:pid' → Elimina el producto con el pid seleccionado
+    + DELETE 'api/carts/:cid' → Elimina el carrito con el cid seleccionado
+    + PUT 'api/carts/:cid' → Elimina todos los productos del carrito
+    + PUT 'api/carts/:cid/products/:pid' → Actualiza la cantidad del producto
+- /router '/' (views):
+    + '/products' → Mostrar los productos con paginacion.
+    + '/carts/:cid' → Mostrar el carrito del usuario.
+
+### Entrega Clase 19:
+
+- /dao → Creacion de el UserManager.js y el user.model.js
+- /router '/api/users':
+    + POST '/register' →  Se crea un usuario a la base de datos y se guarda con "express-session"
+    + POST 'login' → Acceso a la cuenta que hayas creado y se guarda el valor con "express-session"
+    + POST 'logout' → Cierra la sesion con "express-session"
+- /router '/' (views):
+    + /auth/login → Vista para que el usuario inicie sesión.
+    + /auth/register → Vista para que el usuario se registre.
+    + /errors/error → Devuelve el error en caso de que algun dato no se haya cargado.
+
+### Entrega Clase 21:
+
+- utils.js → hasheo con bcrypt.js y configuracion de passport
+- '/api/users':
+    + POST '/github' →  Iniciar sesion o crear cuenta con github en caso de no haberla creado.
+    + POST '/register' →  Implementar bcrypt.
+    + POST 'login' → Implementar bcrypt.

@@ -1,3 +1,10 @@
+{{#if username }}
+<form action="api/users/logout" method="post">
+<input type="submit" value="Cerrar sesion" />
+</form>
+<h2>Bienvenido {{ username }}</h2>
+{{/if}}
+
 <h1>Lista de Productos</h1>
 <ul id="productList"></ul>
 <script src="/socket.io/socket.io.js"></script>
@@ -9,9 +16,9 @@
     const productList = document.getElementById('productList');
     productList.innerHTML = '';
 
-    products.forEach(product => {
+    products.docs.forEach(product => {
       const listItem = document.createElement('li');
-      listItem.textContent = `${product.id} - ${product.title} - ${product.price}`;
+      listItem.textContent = `${product._id} - ${product.title} - ₪ ${product.price}`;
       productList.appendChild(listItem);
     });
   });

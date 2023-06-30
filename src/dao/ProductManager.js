@@ -1,26 +1,32 @@
-import productModel from './models/product.model.js'
+import productModel from "./models/product.model.js";
 
 class ProductManager {
-
   async addProduct(product) {
     try {
-      const newProduct = await productModel.create({ status: true, ...product })
-      return newProduct
+      const newProduct = await productModel.create({
+        status: true,
+        ...product,
+      });
+      return newProduct;
     } catch (error) {
       console.error(`Error agregado /products: ${error}`);
       return null;
     }
   }
 
-  async getProducts(limit) {
+  async getProducts(search, filter, page = 1, limit = 10) {
     try {
-      let query = productModel.find();
-    
-      if (limit) {
-        query = query.limit(limit);
-      }
-    
-      return await query.exec();
+      const sort = filter === "asc" ? "asc" : "desc";
+      const options = {
+        sort: { price: sort },
+        limit: Number(limit),
+        page: Number(page)
+      };
+
+      const searchQuery = { name: { $regex: search, $options: "i" } };
+
+      const searchResults = await productModel.paginate(searchQuery, options);
+      return searchResults;
     } catch (error) {
       console.error(`Error obteniendo /products: ${error}`);
       return [];
@@ -29,8 +35,8 @@ class ProductManager {
 
   async getProductById(id) {
     try {
-      const product = await productModel.findById(id)
-      return product
+      const product = await productModel.findById(id);
+      return product;
     } catch (err) {
       console.error(`Error obteniendo /productId: ${err}`);
       return [];
@@ -38,7 +44,9 @@ class ProductManager {
   }
 
   async updateProduct(id, updatedFields) {
-    return await productModel.findByIdAndUpdate(id, updatedFields, { new: true });
+    return await productModel.findByIdAndUpdate(id, updatedFields, {
+      new: true,
+    });
   }
 
   async deleteProduct(id) {

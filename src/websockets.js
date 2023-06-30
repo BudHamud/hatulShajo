@@ -56,7 +56,7 @@ const configureWebSockets = (server) => {
     socket.on("sendMessage", async (messageData) => {
       try {
         const { user, message } = messageData;
-        const newMessage = await messageModel({ user, message });
+        const newMessage = await messageModel.create({ user, message });
         await newMessage.save();
         emitMessageList();
       } catch (error) {

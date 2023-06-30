@@ -1,0 +1,22 @@
+<style>
+  input[type=submit] { margin: 20px 0; }
+</style>
+<h2>Login</h2>
+<form action="api/users/login" method="post">
+  <div class="formControl">
+    <p for="username">Email:</p>
+    <input type="text" name="email" id="email" />
+  </div>
+
+  <div class="formControl">
+    <p>Contraseña:</p>
+    <input type="password" name="password" id="password" />
+  </div>
+
+  <input type="submit" />
+
+  <p>Si no tienes una cuenta puedes <a href="/register">registrarte</a></p>
+</form>
+<script>
+
+</script>

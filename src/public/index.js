@@ -5,9 +5,9 @@ socket.on("productList", (products) => {
   const productList = document.getElementById("productList");
   productList.innerHTML = "";
 
-  products.forEach((product) => {
+  products.docs.forEach((product) => {
     const listItem = document.createElement("li");
-    listItem.textContent = `${product.id} - ${product.title} - ${product.price}`;
+    listItem.textContent = `${product._id} - ${product.title} - $${product.price}`;
     productList.appendChild(listItem);
   });
 });
